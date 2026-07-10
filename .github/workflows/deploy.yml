@@ -12,10 +12,6 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-
-      - name: 2. 注入生產環境 config.php 檔案
-        run: |
-          echo "${{ secrets.PHP_CONFIG }}" > config.php
       
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -36,18 +32,12 @@ jobs:
 
       - name: Ensure deploy directory exists
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ~/php-app"
+          ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ~/php-game"
 
       - name: Upload project with vendor
         run: |
           scp -i ~/.ssh/id_rsa -r \
-            composer.json \
-            composer.lock \
-            vendor \
-            src \
             Dockerfile \
-            config.php \
-            .htaccess \
             docker-compose.yml \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/php-game/
             
@@ -58,8 +48,8 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} '
             cd ~/php-game &&
-            docker build -t my-php-app . &&
-            docker stop php-container || true &&
-            docker rm php-container || true &&
-            docker run -d --name php-container -p 80:80 my-php-app
+            docker build -t php-game . &&
+            docker stop php-game || true &&
+            docker rm php-game || true &&
+            docker run -d --name TABALL -p 80:80 php-game
           '
