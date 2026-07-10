@@ -19,7 +19,6 @@ jobs:
           php-version: "8.3"
           tools: composer
 
-
       - name: Prepare SSH
         run: |
           mkdir -p ~/.ssh
@@ -46,7 +45,7 @@ jobs:
           ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} '
             cd ~/php-game &&
             docker build -t php-game . &&
-            docker stop php-game || true &&
+            docker stop TABALL || true &&
             docker rm php-game || true &&
-            docker run -d --name TABALL -p 80:80 php-game
+            docker run -d --name TABALL -e TZ=Asia/Taipei -p 80:80 php-game
           '
