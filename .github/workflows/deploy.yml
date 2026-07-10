@@ -46,6 +46,6 @@ jobs:
             cd ~/php-game &&
             docker build -t php-game . &&
             docker stop TABALL || true &&
-            docker rm php-game || true &&
-            docker run -d --name TABALL -e TZ=Asia/Taipei -p 80:80 php-game
+            docker rm TABALL || true &&
+            docker run -d --name TABALL -p 80:80 php-game
           '
