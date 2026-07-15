@@ -29,14 +29,14 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ~/php-game"
       
-
+          
+      
       - name: Upload project with vendor
         run: |
           scp -i ~/.ssh/id_rsa -r \
             Dockerfile \
             docker-compose.yml \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/php-game/
-          ls ~/php-game
             
 
             
