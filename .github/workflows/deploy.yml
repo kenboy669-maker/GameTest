@@ -28,7 +28,12 @@ jobs:
       - name: Ensure deploy directory exists
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ~/php-game"
-
+      
+      - name: List files to upload
+        run: |
+          ls ~/php-game
+          
+      
       - name: Upload project with vendor
         run: |
           scp -i ~/.ssh/id_rsa -r \
