@@ -3,8 +3,7 @@ name: Deploy PHP App
 on:
   push:
     branches:
-      - edit-time
-
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
