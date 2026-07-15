@@ -21,9 +21,20 @@ function readScores(string $file): array {
 function writeScores(string $file, array $scores): bool {
     return file_put_contents($file, json_encode($scores, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX) !== false;
 }
-
+function scoreTimestampToTime(array $decoded): array {
+    foreach ($decoded as &$player) {
+        if (isset($player['time'])) {
+            $datetime = new DateTime();
+            $datetime->setTimezone(new DateTimeZone('Asia/Taipei'));
+            $datetime->setTimestamp((int)$player['time']);
+            $player['time'] = $datetime->format('Y-m-d H:i:s');
+        }
+    }
+    return $decoded;
+}
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    echo json_encode(['scores' => readScores($dataFile)], JSON_UNESCAPED_UNICODE);
+
+    echo json_encode(['scores' => scoreTimestampToTime(readScores($dataFile))], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
@@ -59,7 +70,7 @@ $scores = readScores($dataFile);
 $scores[] = [
     'name' => htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'),
     'score' => $score,
-    'time' => date('Y-m-d H:i:s')
+    'time' => date_timestamp_get(date_create())
 ];
 
 usort($scores, fn($a, $b) => $b['score'] <=> $a['score']);
