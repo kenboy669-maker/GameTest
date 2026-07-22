@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-      
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -24,29 +24,25 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
-          
+
       - name: Test SSH access 一定要留下來檢查有沒有過
         run: |
           ssh -i ~/.ssh/id_rsa \
             -o StrictHostKeyChecking=no \
             "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
             "ls -la /home/${{ secrets.SSH_USER }} && echo 'SSH access success'"
-      
+
       - name: Ensure deploy directory exists
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ~/php-game"
-      
-          
-      
+
       - name: Upload project with vendor
         run: |
           scp -i ~/.ssh/id_rsa -r \
             Dockerfile \
             docker-compose.yml \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/php-game/
-            
 
-            
 
       - name: Deploy on VM
         run: |
@@ -55,5 +51,11 @@ jobs:
             docker build -t php-game . &&
             docker stop TABALL || true &&
             docker rm TABALL || true &&
-            docker run -d --name TABALL -p 80:80  php-game
+            docker run -d --name TABALL -p 80:80\
+            --network app-network \
+            -e DB_HOST=mysql \
+            -e DB_DATABASE=mydb \
+            -e DB_USER=${{ secrets.DB_USER }} \
+            -e DB_PASS=${{ secrets.DB_PASS }} \
+            php-game
           '
