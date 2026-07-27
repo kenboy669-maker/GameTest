@@ -133,6 +133,10 @@
     }
     .overlay-panel h2 { font-family: var(--font-display); font-size: var(--text-xl); margin-bottom: var(--space-3); letter-spacing: .08em; text-transform: uppercase; }
     .overlay-panel p { color: rgba(247,246,242,.8); margin-bottom: var(--space-4); }
+    .overlay-form { margin-top: var(--space-4); text-align: left; display: grid; gap: var(--space-3); }
+    .overlay-form label { color: #f7f6f2; }
+    .overlay-form input[type="text"] { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); color: #f7f6f2; }
+    .overlay-form .btn { width: 100%; }
     .touch-controls { display: none; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: var(--space-4); }
     .touch-btn { min-height: 54px; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface-2); }
     footer { margin-top: var(--space-6); color: var(--color-text-muted); font-size: var(--text-sm); }
@@ -166,7 +170,7 @@
     </header>
 
     <section class="hero" aria-label="遊戲介紹">
-      <article class="card hero-copy">
+      <!-- <article class="card hero-copy">
         <h1>遠端可部署的打磚塊</h1>
         <p>這個版本以前端 Canvas 執行核心遊戲，PHP 負責首頁輸出與排行榜儲存，因此放到一般 Apache + PHP 主機就能直接玩，不需要 Node.js、資料庫或額外服務。</p>
         <div class="pill-row">
@@ -175,8 +179,9 @@
           <span class="pill">PHP JSON API</span>
           <span class="pill">Responsive</span>
         </div>
-      </article>
-      <aside class="card">
+      </article> -->
+      <!-- 隱藏此區塊 應該是會影響排行榜顯示-->
+      <aside class="card" style="display: none;">
         <div class="stats">
           <div class="stat"><div class="stat-label">最佳分數</div><div class="stat-value" id="bestScore">0</div></div>
           <div class="stat"><div class="stat-label">排行榜筆數</div><div class="stat-value" id="boardCount">0</div></div>
@@ -196,6 +201,14 @@
               <h2 id="overlayTitle">準備開打</h2>
               <p id="overlayText">按下開始後，先移動板子，接著按空白鍵發球。</p>
               <button class="btn btn-primary" id="startButton">開始遊戲</button>
+              <form id="overlayScoreForm" class="overlay-form" hidden>
+                <label>
+                  玩家名稱
+                  <input type="text" id="overlayPlayerName" name="name" maxlength="20" placeholder="輸入你的名字" required>
+                </label>
+                <button class="btn btn-primary" type="submit">儲存目前分數</button>
+              </form>
+              <p class="note" id="formMessage" hidden>遊戲結束後也可以手動送出分數。</p>
             </div>
           </div>
         </div>
@@ -221,18 +234,6 @@
           <h2 id="leaderboardTitle">排行榜</h2>
           <ol class="leaderboard-list" id="leaderboardList"></ol>
           <p class="note">最高保留前 10 名，資料儲存在伺服器的 JSON 檔案。</p>
-        </section>
-
-        <section class="card side-panel" aria-labelledby="saveTitle">
-          <h2 id="saveTitle">送出分數</h2>
-          <form id="scoreForm" class="form-grid">
-            <label>
-              玩家名稱
-              <input type="text" id="playerName" name="name" maxlength="20" placeholder="輸入你的名字" required>
-            </label>
-            <button class="btn btn-primary" type="submit">儲存目前分數</button>
-          </form>
-          <p class="note" id="formMessage">遊戲結束後也可以手動送出分數。</p>
         </section>
 
         <section class="card side-panel" aria-labelledby="deployTitle">
@@ -274,8 +275,8 @@
       const bestScore = document.getElementById('bestScore');
       const boardCount = document.getElementById('boardCount');
       const leaderboardList = document.getElementById('leaderboardList');
-      const form = document.getElementById('scoreForm');
-      const playerNameInput = document.getElementById('playerName');
+      const form = document.getElementById('overlayScoreForm');
+      const playerNameInput = document.getElementById('overlayPlayerName');
       const formMessage = document.getElementById('formMessage');
       const startButton = document.getElementById('startButton');
       const restartButton = document.getElementById('restartButton');
@@ -364,11 +365,18 @@
         draw();
       }
 
+      function syncOverlaySubmitState() {
+        const shouldShowSubmit = state.gameOver && state.canSubmit;
+        form.hidden = !shouldShowSubmit;
+        formMessage.hidden = !shouldShowSubmit;
+      }
+
       function showOverlay(title, text, buttonText = '開始遊戲') {
         overlay.hidden = false;
         overlayTitle.textContent = title;
         overlayText.textContent = text;
         startButton.textContent = buttonText;
+        syncOverlaySubmitState();
       }
 
       function hideOverlay() {
@@ -677,6 +685,7 @@
           formMessage.textContent = result.message || '分數已送出。';
           await loadScores();
           state.canSubmit = false;
+          syncOverlaySubmitState();
         } catch {
           formMessage.textContent = '送出失敗，請確認主機允許 PHP 寫入 data 資料夾。';
         }
