@@ -57,7 +57,7 @@ jobs:
             docker run -d --name TABALL -p 80:80\
             --network app-network \
             -e DB_HOST=mysql \
-            -e DB_DATABASE=mydb \
+            -e DB_DATABASE=gamedb \
             -e DB_USER=${{ secrets.DB_USER }} \
             -e DB_PASS=${{ secrets.DB_PASS }} \
             php-game
