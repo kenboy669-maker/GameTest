@@ -35,12 +35,15 @@ jobs:
       - name: Ensure deploy directory exists
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ~/php-game"
-
+        
+          # 測試這段是不是沒搬過去的問題
       - name: Upload project with vendor
         run: |
           scp -i ~/.ssh/id_rsa -r \
             Dockerfile \
             docker-compose.yml \
+            game.php \
+            score.php \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/php-game/
 
 
