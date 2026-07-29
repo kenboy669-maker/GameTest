@@ -8,7 +8,7 @@ class RankService
 
     public function __construct()
     {
-        $host  = getenv('DB_HOST') ?: 'mysql';
+        $host  = getenv('DB_HOST') ?: 'localhost';
         $db    = getenv('DB_DATABASE') ?: 'gamedb';
         $user  = getenv('DB_USER') ?: 'kenboy669';
         $pass  = getenv('DB_PASS') ?: 'kenpass';
@@ -81,7 +81,7 @@ class RankService
 
         echo json_encode(['message' => '分數已儲存', 'scores' => $scores], JSON_UNESCAPED_UNICODE);
     }
-
+    
     private function fetchTopScores(int $limit = 10): array
     {
         $sql = "SELECT `id`, `name`, `score`, `time`
@@ -89,7 +89,7 @@ class RankService
                 ORDER BY `score` DESC, `time` ASC
                 LIMIT :limit";
 
-        try {
+        // try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
             $stmt->execute();
@@ -105,9 +105,9 @@ class RankService
             }
 
             return $scores;
-        } catch (PDOException $e) {
-            $this->fail(500, '查詢失敗: ' . $e->getMessage());
-        }
+        // } catch (PDOException $e) {
+        //     $this->fail(500, '查詢失敗: ' . $e->getMessage());
+        // }
     }
 
     private function insertScore(string $name, int $score): void
