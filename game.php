@@ -308,22 +308,33 @@
         canSubmit: false,
       };
 
+      async function requestJson(url, options = {}) {
+        const res = await fetch(url, options);
+        let payload = {};
+        try {
+          payload = await res.json();
+        } catch {
+          payload = {};
+        }
+        if (!res.ok) {
+          throw new Error(payload.message || '請求失敗');
+        }
+        return payload;
+      }
+
       const api = {
         async getScores() {
-          const res = await fetch('score.php');
-          return res.json();
+          return requestJson('score.php');
         },
         async postScore(name, score) {
-          const res = await fetch('score.php', {
+          return requestJson('score.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, score })
           });
-          return res.json();
         },
         async clearScores() {
-          const res = await fetch('score.php?action=clear', { method: 'POST' });
-          return res.json();
+          return requestJson('score.php?action=clear', { method: 'POST' });
         }
       };
 
@@ -686,8 +697,8 @@
           await loadScores();
           state.canSubmit = false;
           syncOverlaySubmitState();
-        } catch {
-          formMessage.textContent = '送出失敗，請確認主機允許 PHP 寫入 data 資料夾。';
+        } catch (error) {
+          formMessage.textContent = error.message || '送出失敗，請確認資料庫連線是否正常。';
         }
       });
 
@@ -696,8 +707,8 @@
           const result = await api.clearScores();
           formMessage.textContent = result.message || '排行榜已清空。';
           await loadScores();
-        } catch {
-          formMessage.textContent = '清空失敗。';
+        } catch (error) {
+          formMessage.textContent = error.message || '清空失敗。';
         }
       });
 
@@ -717,8 +728,8 @@
             li.innerHTML = `<span class="rank">${index + 1}</span><span>${escapeHtml(entry.name)}<br><small class="note">${escapeHtml(entry.time)}</small></span><strong>${entry.score}</strong>`;
             leaderboardList.appendChild(li);
           });
-        } catch {
-          leaderboardList.innerHTML = '<li><span class="rank">!</span><span>無法讀取排行榜</span><strong>--</strong></li>';
+} catch (error) {
+          leaderboardList.innerHTML = `<li><span class="rank">!</span><span>${escapeHtml(error.message || '無法讀取排行榜')}</span><strong>--</strong></li>`;
         }
       }
 
