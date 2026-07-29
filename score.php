@@ -1,7 +1,7 @@
 ﻿<?php
 header('Content-Type: application/json; charset=utf-8');
 
-define('DB_HOST', '127.0.0.1');
+define('DB_HOST', '10.138.0.2');
 define('DB_USER', 'kenboy669');
 define('DB_PASS', 'kenpass');
 define('DB_NAME', 'gamedb');
