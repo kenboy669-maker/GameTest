@@ -1,5 +1,5 @@
 ﻿<?php
-header('Content-Type: application/json; charset=utf-8');
+// header('Content-Type: application/json; charset=utf-8');
 
 class RankService
 {
@@ -15,7 +15,7 @@ class RankService
         $this->table = getenv('DB_TABLE') ?: 'taball_rank';
 
         $dsn = 'mysql:host=' . $host . ';dbname=' . $db . ';charset=utf8mb4';
-        var_dump("dsn:$dsn");
+        // var_dump("dsn:$dsn");
         try {
             $this->pdo = new PDO($dsn, $user, $pass, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
