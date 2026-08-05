@@ -1,6 +1,8 @@
 <?php
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,7 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root, [data-theme="light"] {
+    :root,
+    [data-theme="light"] {
       --font-display: 'Orbitron', 'Arial', sans-serif;
       --font-body: 'Inter', 'Arial', sans-serif;
       --text-xs: clamp(0.75rem, 0.72rem + 0.2vw, 0.875rem);
@@ -18,13 +21,20 @@
       --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
       --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.1rem);
       --text-2xl: clamp(2rem, 1.3rem + 2vw, 3rem);
-      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
-      --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
-      --space-12: 3rem; --space-16: 4rem;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
       --color-bg: #f4f2ee;
       --color-surface: #fbfaf7;
       --color-surface-2: #f0ece7;
-      --color-border: rgba(40,37,29,.12);
+      --color-border: rgba(40, 37, 29, .12);
       --color-text: #231f18;
       --color-text-muted: #6b685f;
       --color-text-inverse: #faf7f1;
@@ -32,19 +42,20 @@
       --color-primary-hover: #0a5050;
       --color-danger: #a13851;
       --color-gold: #d29a17;
-      --shadow-sm: 0 2px 8px rgba(29,20,10,.06);
-      --shadow-md: 0 12px 30px rgba(29,20,10,.10);
+      --shadow-sm: 0 2px 8px rgba(29, 20, 10, .06);
+      --shadow-md: 0 12px 30px rgba(29, 20, 10, .10);
       --radius-md: 0.75rem;
       --radius-lg: 1rem;
       --radius-full: 9999px;
       --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
-      --hero-glow: radial-gradient(circle at top, rgba(13,104,103,.18), transparent 45%);
+      --hero-glow: radial-gradient(circle at top, rgba(13, 104, 103, .18), transparent 45%);
     }
+
     [data-theme="dark"] {
       --color-bg: #151412;
       --color-surface: #1d1b18;
       --color-surface-2: #26231f;
-      --color-border: rgba(255,255,255,.12);
+      --color-border: rgba(255, 255, 255, .12);
       --color-text: #e6e1d9;
       --color-text-muted: #a7a097;
       --color-text-inverse: #171512;
@@ -52,12 +63,21 @@
       --color-primary-hover: #8ebbbb;
       --color-danger: #e26d8b;
       --color-gold: #efbf56;
-      --shadow-sm: 0 2px 10px rgba(0,0,0,.22);
-      --shadow-md: 0 12px 30px rgba(0,0,0,.35);
-      --hero-glow: radial-gradient(circle at top, rgba(102,167,167,.20), transparent 45%);
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, .22);
+      --shadow-md: 0 12px 30px rgba(0, 0, 0, .35);
+      --hero-glow: radial-gradient(circle at top, rgba(102, 167, 167, .20), transparent 45%);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { color-scheme: light dark; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      color-scheme: light dark;
+    }
+
     body {
       min-height: 100dvh;
       background: var(--hero-glow), var(--color-bg);
@@ -65,27 +85,95 @@
       font-family: var(--font-body);
       line-height: 1.5;
     }
-    button, input { font: inherit; }
-    [hidden] { display: none !important; }
-    a, button, input { transition: background var(--transition-interactive), color var(--transition-interactive), border-color var(--transition-interactive), transform var(--transition-interactive), box-shadow var(--transition-interactive); }
-    .page { max-width: 1200px; margin: 0 auto; padding: var(--space-6) var(--space-4) var(--space-10); }
-    .skip-link { position: absolute; left: -999px; top: 0; background: var(--color-primary); color: var(--color-text-inverse); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); }
-    .skip-link:focus { left: var(--space-4); top: var(--space-4); }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    a,
+    button,
+    input {
+      transition: background var(--transition-interactive), color var(--transition-interactive), border-color var(--transition-interactive), transform var(--transition-interactive), box-shadow var(--transition-interactive);
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-4) var(--space-10);
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 0;
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+    }
+
+    .skip-link:focus {
+      left: var(--space-4);
+      top: var(--space-4);
+    }
+
     header {
-      display: flex; justify-content: space-between; align-items: center; gap: var(--space-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
       margin-bottom: var(--space-6);
     }
-    .brand { display: flex; align-items: center; gap: var(--space-3); }
-    .brand-mark { width: 42px; height: 42px; color: var(--color-primary); }
-    .brand-name { font-family: var(--font-display); font-size: var(--text-lg); letter-spacing: .08em; text-transform: uppercase; }
-    .theme-toggle, .btn {
-      border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text);
-      border-radius: var(--radius-full); min-height: 44px; padding: 0 var(--space-4); cursor: pointer; box-shadow: var(--shadow-sm);
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
     }
-    .theme-toggle:hover, .btn:hover { transform: translateY(-1px); }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      color: var(--color-primary);
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .theme-toggle,
+    .btn {
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      border-radius: var(--radius-full);
+      min-height: 44px;
+      padding: 0 var(--space-4);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .theme-toggle:hover,
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
     .hero {
-      display: grid; grid-template-columns: 1.2fr .8fr; gap: var(--space-6); align-items: stretch; margin-bottom: var(--space-6);
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: var(--space-6);
+      align-items: stretch;
+      margin-bottom: var(--space-6);
     }
+
     .card {
       background: color-mix(in srgb, var(--color-surface) 88%, transparent);
       border: 1px solid var(--color-border);
@@ -94,72 +182,361 @@
       padding: var(--space-5);
       backdrop-filter: blur(12px);
     }
-    .hero-copy h1 { font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1.03; letter-spacing: .04em; text-transform: uppercase; margin-bottom: var(--space-4); }
-    .hero-copy p { color: var(--color-text-muted); font-size: var(--text-base); max-width: 58ch; }
-    .pill-row { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
-    .pill { border-radius: var(--radius-full); padding: .5rem .8rem; background: var(--color-surface-2); color: var(--color-text-muted); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; }
-    .stats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--space-3); }
-    .stat { padding: var(--space-4); border-radius: var(--radius-md); background: var(--color-surface-2); border: 1px solid var(--color-border); }
-    .stat-label { color: var(--color-text-muted); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; }
-    .stat-value { font-size: var(--text-xl); font-weight: 700; font-variant-numeric: tabular-nums; margin-top: var(--space-1); }
-    main { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(300px, .7fr); gap: var(--space-6); align-items: start; }
-    .game-shell { padding: var(--space-4); }
-    .canvas-wrap { position: relative; border-radius: var(--radius-lg); overflow: hidden; background: #111; border: 1px solid var(--color-border); }
-    canvas { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; background: linear-gradient(180deg, #111a1c 0%, #0c1114 100%); }
-    .hud { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
-    .hud-item { flex: 1 1 140px; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-3); }
-    .hud-item strong { display: block; font-size: var(--text-xs); letter-spacing: .08em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: .2rem; }
-    .hud-item span { font-size: var(--text-lg); font-weight: 700; font-variant-numeric: tabular-nums; }
-    .control-row { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
-    .btn-primary { background: var(--color-primary); color: var(--color-text-inverse); border-color: transparent; }
-    .btn-primary:hover { background: var(--color-primary-hover); }
-    .btn-danger { background: transparent; color: var(--color-danger); }
-    .side-panel h2 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
-    .stack { display: grid; gap: var(--space-4); }
-    .leaderboard-list { list-style: none; display: grid; gap: var(--space-2); }
-    .leaderboard-list li { display: grid; grid-template-columns: 2rem 1fr auto; gap: var(--space-3); align-items: center; padding: .8rem .9rem; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
-    .leaderboard-list .rank { font-family: var(--font-display); color: var(--color-gold); }
-    .form-grid { display: grid; gap: var(--space-3); }
-    label { display: grid; gap: .45rem; font-size: var(--text-sm); }
-    input[type="text"] { min-height: 44px; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface-2); color: var(--color-text); padding: 0 .9rem; }
-    .note { color: var(--color-text-muted); font-size: var(--text-sm); }
+
+    .hero-copy h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      line-height: 1.03;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+    }
+
+    .hero-copy p {
+      color: var(--color-text-muted);
+      font-size: var(--text-base);
+      max-width: 58ch;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+    }
+
+    .pill {
+      border-radius: var(--radius-full);
+      padding: .5rem .8rem;
+      background: var(--color-surface-2);
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .stat {
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+    }
+
+    .stat-label {
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .stat-value {
+      font-size: var(--text-xl);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      margin-top: var(--space-1);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(300px, .7fr);
+      gap: var(--space-6);
+      align-items: start;
+    }
+
+    .game-shell {
+      padding: var(--space-4);
+    }
+
+    .canvas-wrap {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #111;
+      border: 1px solid var(--color-border);
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(180deg, #111a1c 0%, #0c1114 100%);
+    }
+
+    .hud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+
+    .hud-item {
+      flex: 1 1 140px;
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+    }
+
+    .hud-item strong {
+      display: block;
+      font-size: var(--text-xs);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: .2rem;
+    }
+
+    .hud-item span {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      border-color: transparent;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-primary-hover);
+    }
+
+    .btn-danger {
+      background: transparent;
+      color: var(--color-danger);
+    }
+
+    .side-panel h2 {
+      font-size: var(--text-lg);
+      margin-bottom: var(--space-3);
+    }
+
+    .stack {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .leaderboard-list {
+      list-style: none;
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .leaderboard-list li {
+      display: grid;
+      grid-template-columns: 2rem 1fr auto;
+      gap: var(--space-3);
+      align-items: center;
+      padding: .8rem .9rem;
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+
+    .leaderboard-list .rank {
+      font-family: var(--font-display);
+      color: var(--color-gold);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    label {
+      display: grid;
+      gap: .45rem;
+      font-size: var(--text-sm);
+    }
+
+    input[type="text"] {
+      min-height: 44px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-2);
+      color: var(--color-text);
+      padding: 0 .9rem;
+    }
+
+    .note {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .auth-area {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .55rem;
+    }
+
+    .auth-status {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      text-align: right;
+    }
+
+    .auth-gate {
+      min-height: calc(100dvh - 8rem);
+      display: grid;
+      place-items: center;
+      padding: var(--space-6) var(--space-4);
+    }
+
+    .auth-card {
+      width: min(100%, 560px);
+      background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: var(--space-8);
+      text-align: center;
+    }
+
+    .auth-card h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+      margin-bottom: var(--space-3);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .auth-card p {
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+    }
+
+    .auth-card .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
     .overlay {
-      position: absolute; inset: 0; display: grid; place-items: center; padding: var(--space-4);
-      background: linear-gradient(rgba(9,12,14,.2), rgba(9,12,14,.72));
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: var(--space-4);
+      background: linear-gradient(rgba(9, 12, 14, .2), rgba(9, 12, 14, .72));
     }
+
     .overlay-panel {
-      width: min(92%, 420px); background: rgba(15,18,20,.85); color: #f7f6f2; border: 1px solid rgba(255,255,255,.12);
-      border-radius: var(--radius-lg); padding: var(--space-5); text-align: center; backdrop-filter: blur(10px);
+      width: min(92%, 420px);
+      background: rgba(15, 18, 20, .85);
+      color: #f7f6f2;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-align: center;
+      backdrop-filter: blur(10px);
     }
-    .overlay-panel h2 { font-family: var(--font-display); font-size: var(--text-xl); margin-bottom: var(--space-3); letter-spacing: .08em; text-transform: uppercase; }
-    .overlay-panel p { color: rgba(247,246,242,.8); margin-bottom: var(--space-4); }
-    .overlay-form { margin-top: var(--space-4); text-align: left; display: grid; gap: var(--space-3); }
-    .overlay-form label { color: #f7f6f2; }
-    .overlay-form input[type="text"] { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); color: #f7f6f2; }
-    .overlay-form .btn { width: 100%; }
-    .touch-controls { display: none; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: var(--space-4); }
-    .touch-btn { min-height: 54px; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface-2); }
-    footer { margin-top: var(--space-6); color: var(--color-text-muted); font-size: var(--text-sm); }
+
+    .overlay-panel h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-3);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .overlay-panel p {
+      color: rgba(247, 246, 242, .8);
+      margin-bottom: var(--space-4);
+    }
+
+    .overlay-form {
+      margin-top: var(--space-4);
+      text-align: left;
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .overlay-form label {
+      color: #f7f6f2;
+    }
+
+    .overlay-form input[type="text"] {
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .18);
+      color: #f7f6f2;
+    }
+
+    .overlay-form .btn {
+      width: 100%;
+    }
+
+    .touch-controls {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+
+    .touch-btn {
+      min-height: 54px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-2);
+    }
+
+    footer {
+      margin-top: var(--space-6);
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
     @media (max-width: 900px) {
-      .hero, main { grid-template-columns: 1fr; }
+
+      .hero,
+      main {
+        grid-template-columns: 1fr;
+      }
     }
+
     @media (max-width: 680px) {
-      .stats { grid-template-columns: 1fr; }
-      .touch-controls { display: grid; }
-      .page { padding-inline: var(--space-3); }
-      .hero-copy h1 { max-width: 12ch; }
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .touch-controls {
+        display: grid;
+      }
+
+      .page {
+        padding-inline: var(--space-3);
+      }
+
+      .hero-copy h1 {
+        max-width: 12ch;
+      }
     }
   </style>
 </head>
+
 <body>
   <a class="skip-link" href="#game">跳到遊戲</a>
   <div class="page">
     <header>
       <div class="brand" aria-label="Brick Pulse logo">
         <svg class="brand-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Brick Pulse logo">
-          <rect x="8" y="12" width="48" height="12" rx="4" stroke="currentColor" stroke-width="4"/>
-          <rect x="18" y="30" width="28" height="12" rx="6" fill="currentColor"/>
-          <circle cx="32" cy="50" r="6" fill="currentColor"/>
+          <rect x="8" y="12" width="48" height="12" rx="4" stroke="currentColor" stroke-width="4" />
+          <rect x="18" y="30" width="28" height="12" rx="6" fill="currentColor" />
+          <circle cx="32" cy="50" r="6" fill="currentColor" />
         </svg>
         <div>
           <div class="brand-name">Brick Pulse</div>
@@ -169,8 +546,18 @@
       <button class="theme-toggle" data-theme-toggle aria-label="切換深色模式">🌙</button>
     </header>
 
-    <section class="hero" aria-label="遊戲介紹">
-      <!-- <article class="card hero-copy">
+    <section class="auth-gate" id="authGate" aria-label="登入入口">
+      <div class="auth-card">
+        <h1>Brick Pulse</h1>
+        <p>請先使用 Google 帳號登入，登入後才能進入遊戲與排行榜。</p>
+        <div id="googleLoginButton" style="display:flex;justify-content:center;margin-bottom:var(--space-3);"></div>
+        <div class="auth-status" id="authStatus">請先使用 Google 帳號登入</div>
+      </div>
+    </section>
+
+    <div id="appContent" hidden>
+      <section class="hero" aria-label="遊戲介紹">
+        <!-- <article class="card hero-copy">
         <h1>遠端可部署的打磚塊</h1>
         <p>這個版本以前端 Canvas 執行核心遊戲，PHP 負責首頁輸出與排行榜儲存，因此放到一般 Apache + PHP 主機就能直接玩，不需要 Node.js、資料庫或額外服務。</p>
         <div class="pill-row">
@@ -180,76 +567,90 @@
           <span class="pill">Responsive</span>
         </div>
       </article> -->
-      <!-- 隱藏此區塊 應該是會影響排行榜顯示-->
-      <aside class="card" style="display: none;">
-        <div class="stats">
-          <div class="stat"><div class="stat-label">最佳分數</div><div class="stat-value" id="bestScore">0</div></div>
-          <div class="stat"><div class="stat-label">排行榜筆數</div><div class="stat-value" id="boardCount">0</div></div>
-          <div class="stat"><div class="stat-label">難度</div><div class="stat-value">Normal</div></div>
-          <div class="stat"><div class="stat-label">部署需求</div><div class="stat-value" style="font-size:var(--text-lg)">PHP 8+</div></div>
-        </div>
-      </aside>
-    </section>
-
-    <main id="game">
-      <section class="card game-shell" aria-labelledby="gameTitle">
-        <h2 id="gameTitle" style="margin-bottom: var(--space-3);">遊戲畫面</h2>
-        <div class="canvas-wrap">
-          <canvas id="gameCanvas" width="960" height="600" aria-label="打磚塊遊戲畫布"></canvas>
-          <div class="overlay" id="gameOverlay">
-            <div class="overlay-panel">
-              <h2 id="overlayTitle">準備開打</h2>
-              <p id="overlayText">按下開始後，先移動板子，接著按空白鍵發球。</p>
-              <button class="btn btn-primary" id="startButton">開始遊戲</button>
-              <form id="overlayScoreForm" class="overlay-form" hidden>
-                <label>
-                  玩家名稱
-                  <input type="text" id="overlayPlayerName" name="name" maxlength="20" placeholder="輸入你的名字" required>
-                </label>
-                <button class="btn btn-primary" type="submit">儲存目前分數</button>
-              </form>
-              <p class="note" id="formMessage" hidden>遊戲結束後也可以手動送出分數。</p>
+        <!-- 隱藏此區塊 應該是會影響排行榜顯示-->
+        <aside class="card" style="display: none;">
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-label">最佳分數</div>
+              <div class="stat-value" id="bestScore">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">排行榜筆數</div>
+              <div class="stat-value" id="boardCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">難度</div>
+              <div class="stat-value">Normal</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">部署需求</div>
+              <div class="stat-value" style="font-size:var(--text-lg)">PHP 8+</div>
             </div>
           </div>
-        </div>
-        <div class="hud" aria-label="遊戲資訊">
-          <div class="hud-item"><strong>分數</strong><span id="scoreValue">0</span></div>
-          <div class="hud-item"><strong>生命</strong><span id="livesValue">3</span></div>
-          <div class="hud-item"><strong>關卡</strong><span id="levelValue">1</span></div>
-          <div class="hud-item"><strong>剩餘磚塊</strong><span id="bricksValue">0</span></div>
-        </div>
-        <div class="control-row">
-          <button class="btn btn-primary" id="restartButton">重新開始</button>
-          <button class="btn" id="pauseButton">暫停</button>
-          <button class="btn btn-danger" id="clearScoresButton">清空排行榜</button>
-        </div>
-        <div class="touch-controls" aria-label="手機控制">
-          <button class="touch-btn" id="leftBtn" aria-label="往左移動">← 左</button>
-          <button class="touch-btn" id="rightBtn" aria-label="往右移動">右 →</button>
-        </div>
+        </aside>
       </section>
 
-      <aside class="stack">
-        <section class="card side-panel" aria-labelledby="leaderboardTitle">
-          <h2 id="leaderboardTitle">排行榜</h2>
-          <ol class="leaderboard-list" id="leaderboardList"></ol>
-          <p class="note">最高保留前 10 名，資料儲存在伺服器的 JSON 檔案。</p>
+      <main id="game">
+        <section class="card game-shell" aria-labelledby="gameTitle">
+          <!-- <h2 id="gameTitle" style="margin-bottom: var(--space-3);">遊戲畫面</h2> -->
+          <div class="canvas-wrap">
+            <canvas id="gameCanvas" width="960" height="600" aria-label="打磚塊遊戲畫布"></canvas>
+            <div class="overlay" id="gameOverlay">
+              <div class="overlay-panel">
+                <h2 id="overlayTitle">準備開打</h2>
+                <p id="overlayText">按下開始後，先移動板子，接著按空白鍵發球。</p>
+                <button class="btn btn-primary" id="startButton">開始遊戲</button>
+                <form id="overlayScoreForm" class="overlay-form" hidden>
+                  <label>
+                    玩家名稱
+                    <input type="text" id="overlayPlayerName" name="name" maxlength="20" placeholder="輸入你的名字" required>
+                  </label>
+                  <button class="btn btn-primary" type="submit">儲存目前分數</button>
+                </form>
+                <p class="note" id="formMessage" hidden></p>
+              </div>
+            </div>
+          </div>
+          <div class="hud" aria-label="遊戲資訊">
+            <div class="hud-item"><strong>分數</strong><span id="scoreValue">0</span></div>
+            <div class="hud-item"><strong>生命</strong><span id="livesValue">3</span></div>
+            <div class="hud-item"><strong>關卡</strong><span id="levelValue">1</span></div>
+            <div class="hud-item"><strong>剩餘磚塊</strong><span id="bricksValue">0</span></div>
+          </div>
+          <div class="control-row">
+            <button class="btn btn-primary" id="restartButton">重新開始</button>
+            <button class="btn" id="pauseButton">暫停</button>
+            <button class="btn btn-danger" id="clearScoresButton">清空排行榜</button>
+          </div>
+          <div class="touch-controls" aria-label="手機控制">
+            <button class="touch-btn" id="leftBtn" aria-label="往左移動">← 左</button>
+            <button class="touch-btn" id="rightBtn" aria-label="往右移動">右 →</button>
+          </div>
         </section>
 
-        <section class="card side-panel" aria-labelledby="deployTitle">
+        <aside class="stack">
+          <section class="card side-panel" aria-labelledby="leaderboardTitle">
+            <h2 id="leaderboardTitle">排行榜</h2>
+            <ol class="leaderboard-list" id="leaderboardList"></ol>
+            <p class="note">最高保留前 10 名，資料儲存在伺服器的Mysql。</p>
+          </section>
+
+          <!-- <section class="card side-panel" aria-labelledby="deployTitle">
           <h2 id="deployTitle">部署方式</h2>
           <div class="note" style="display:grid;gap:.55rem;">
             <p>1. 把整個資料夾上傳到支援 PHP 的主機。</p>
             <p>2. 確認 <code>data/</code> 目錄可寫入。</p>
             <p>3. 用瀏覽器開啟 <code>index.php</code> 即可遊玩。</p>
           </div>
-        </section>
-      </aside>
-    </main>
+        </section> -->
+        </aside>
+      </main>
 
-    <footer>建議環境：Apache 或 Nginx + PHP。遊戲邏輯在瀏覽器運行，PHP 只處理頁面與排行榜儲存。</footer>
+      <footer>建議環境：Apache 或 Nginx + PHP。遊戲邏輯在瀏覽器運行，PHP 只處理頁面與排行榜儲存。</footer>
+    </div>
   </div>
 
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     (() => {
       const themeToggle = document.querySelector('[data-theme-toggle]');
@@ -261,7 +662,10 @@
         themeToggle.setAttribute('aria-label', theme === 'dark' ? '切換亮色模式' : '切換深色模式');
       };
       updateTheme();
-      themeToggle.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; updateTheme(); });
+      themeToggle.addEventListener('click', () => {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        updateTheme();
+      });
 
       const canvas = document.getElementById('gameCanvas');
       const ctx = canvas.getContext('2d');
@@ -284,6 +688,9 @@
       const clearScoresButton = document.getElementById('clearScoresButton');
       const leftBtn = document.getElementById('leftBtn');
       const rightBtn = document.getElementById('rightBtn');
+      const authStatus = document.getElementById('authStatus');
+      const authGate = document.getElementById('authGate');
+      const appContent = document.getElementById('appContent');
 
       const state = {
         running: false,
@@ -294,8 +701,21 @@
         score: 0,
         lives: 3,
         maxLives: 3,
-        paddle: { width: 150, height: 16, x: 405, speed: 9, dx: 0 },
-        ball: { x: 480, y: 430, radius: 10, dx: 4.2, dy: -4.2, speedCap: 8.4 },
+        paddle: {
+          width: 150,
+          height: 16,
+          x: 405,
+          speed: 9,
+          dx: 0
+        },
+        ball: {
+          x: 480,
+          y: 430,
+          radius: 10,
+          dx: 4.2,
+          dy: -4.2,
+          speedCap: 8.4
+        },
         rows: 5,
         cols: 9,
         brickWidth: 88,
@@ -308,6 +728,94 @@
         canSubmit: false,
       };
 
+      const authState = {
+        user: null,
+        idToken: null
+      };
+
+      /**
+       *  解析 Google JWT id_token 的 payload 部分，並回傳解碼後的 JSON 物件。
+       */
+      function decodeJwtPayload(token) {
+        try {
+          const payload = token.split('.')[1];
+          const normalized = payload.replace(/-/g, '+').replace(/_/g, '/');
+          const padded = normalized + '='.repeat((4 - (normalized.length % 4)) % 4);
+          const decoded = atob(padded);
+          return JSON.parse(decodeURIComponent(decoded.split('').map((char) => '%' + ('00' + char.charCodeAt(0).toString(16)).slice(-2)).join('')));
+        } catch {
+          return null;
+        }
+      }
+
+      /**
+       *  更新畫面上的登入狀態與遊戲入口顯示。
+       */
+      function updateAuthUI() {
+        if (authState.user) {
+          authStatus.textContent = `已登入：${authState.user.email || authState.user.name || 'Google 使用者'}`;
+          authGate.hidden = true;
+          appContent.hidden = false;
+          startButton.disabled = false;
+          restartButton.disabled = false;
+          pauseButton.disabled = false;
+          clearScoresButton.disabled = false;
+        } else {
+          authStatus.textContent = '請先使用 Google 帳號登入';
+          authGate.hidden = false;
+          appContent.hidden = true;
+          startButton.disabled = true;
+          restartButton.disabled = true;
+          pauseButton.disabled = true;
+          clearScoresButton.disabled = true;
+        }
+      }
+
+      /**
+       *  檢查是否已完成 Google 身分驗證，沒有則拋出錯誤。
+       * */
+      function ensureAuthenticated() {
+        if (!authState.idToken || !authState.user) {
+          throw new Error('請先使用 Google 帳號登入。');
+        }
+        return authState;
+      }
+
+      /**
+       *  初始化 Google 身分驗證元件，並在畫面上渲染登入按鈕。
+       */
+      function initGoogleAuth() {
+        if (!window.google?.accounts?.id) {
+          window.setTimeout(initGoogleAuth, 200);
+          return;
+        }
+        //id_token 需要在 Google Cloud Console 的 OAuth 同意畫面中啟用，並在憑證中建立 OAuth 2.0 用戶端 ID。
+        //callback 會在使用者登入後被呼叫，並傳入包含 id_token 的 credential 參數。
+        window.google.accounts.id.initialize({
+          client_id: '501494712724-dquh9309iefpd8f03r0eaakcgpeurq23.apps.googleusercontent.com',
+          callback: handleGoogleCredentialResponse,
+        });
+        window.google.accounts.id.renderButton(document.getElementById('googleLoginButton'), {
+          theme: 'outline',
+          size: 'large',
+          text: 'signin_with',
+        });
+      }
+      //Callback function 將 Google 回傳的 credential 解碼，並更新 authState 與畫面上的登入狀態。
+      window.handleGoogleCredentialResponse = async (response) => {
+        const payload = decodeJwtPayload(response.credential);
+        authState.idToken = response.credential;
+        authState.user = {
+          name: payload?.name || payload?.given_name || payload?.email || 'Google 使用者',
+          email: payload?.email || '',
+        };
+        updateAuthUI();
+        showOverlay('準備開打', '帳號驗證完成，現在可以開始遊戲與送出分數。', '開始遊戲');
+      };
+
+      /**
+       *  發送 fetch 請求並解析 JSON 回應，若 HTTP 狀態非 OK 則拋出錯誤。
+       */
       async function requestJson(url, options = {}) {
         const res = await fetch(url, options);
         let payload = {};
@@ -327,27 +835,54 @@
           return requestJson('score.php');
         },
         async postScore(name, score) {
+          const auth = ensureAuthenticated();
           return requestJson('score.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, score })
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name,
+              score,
+              idToken: auth.idToken
+            })
           });
         },
         async clearScores() {
-          return requestJson('score.php?action=clear', { method: 'POST' });
+          const auth = ensureAuthenticated();
+          return requestJson('score.php?action=clear', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              idToken: auth.idToken
+            })
+          });
         }
       };
 
+      /**
+       *  生成磚塊陣列並初始化每個磚塊的屬性。
+       */
       function buildBricks() {
         state.bricks = [];
         for (let c = 0; c < state.cols; c++) {
           state.bricks[c] = [];
           for (let r = 0; r < state.rows; r++) {
-            state.bricks[c][r] = { x: 0, y: 0, status: 1, hp: (r % 2 === 0 ? 1 : 2) };
+            state.bricks[c][r] = {
+              x: 0,
+              y: 0,
+              status: 1,
+              hp: (r % 2 === 0 ? 1 : 2)
+            };
           }
         }
       }
 
+      /**
+       *  重置球與板子的初始位置，並將球設為尚未發射狀態。
+       */
       function resetBallAndPaddle() {
         state.paddle.x = (canvas.width - state.paddle.width) / 2;
         state.paddle.dx = 0;
@@ -358,6 +893,9 @@
         state.ballLaunched = false;
       }
 
+      /**
+       *  重置整個遊戲狀態為初始關卡，並重新建立磚塊、球、板子與 HUD。
+       */
       function resetGame() {
         state.running = false;
         state.paused = false;
@@ -376,12 +914,18 @@
         draw();
       }
 
+      /**
+       *  根據遊戲是否結束與是否可提交得分，決定分數提交表單是否顯示。
+       */
       function syncOverlaySubmitState() {
         const shouldShowSubmit = state.gameOver && state.canSubmit;
         form.hidden = !shouldShowSubmit;
         formMessage.hidden = !shouldShowSubmit;
       }
 
+      /**
+       *  顯示遊戲提示覆蓋層，並同步是否顯示分數提交表單。
+       */
       function showOverlay(title, text, buttonText = '開始遊戲') {
         overlay.hidden = false;
         overlayTitle.textContent = title;
@@ -390,10 +934,16 @@
         syncOverlaySubmitState();
       }
 
+      /**
+       *  隱藏提示覆蓋層。
+       */
       function hideOverlay() {
         overlay.hidden = true;
       }
 
+      /**
+       *  更新 HUD 資訊欄，包括分數、生命、關卡與剩餘磚塊數。
+       */
       function renderHud() {
         scoreValue.textContent = state.score;
         livesValue.textContent = state.lives;
@@ -401,12 +951,20 @@
         bricksValue.textContent = countBricks();
       }
 
+      /**
+       *  計算目前場上存在的磚塊數量。
+       */
       function countBricks() {
         let count = 0;
-        state.bricks.forEach(col => col.forEach(brick => { if (brick.status > 0) count++; }));
+        state.bricks.forEach(col => col.forEach(brick => {
+          if (brick.status > 0) count++;
+        }));
         return count;
       }
 
+      /**
+       *  畫一個圓角矩形，用於磚塊與板子繪製。
+       */
       function drawRoundedRect(x, y, w, h, r, fillStyle) {
         ctx.beginPath();
         ctx.moveTo(x + r, y);
@@ -419,6 +977,9 @@
         ctx.fill();
       }
 
+      /**
+       *  畫遊戲背景與裝飾點。
+       */
       function drawBackground() {
         const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
         grad.addColorStop(0, '#16242b');
@@ -434,6 +995,9 @@
         }
       }
 
+      /**
+       *  繪製所有尚未被破壞的磚塊。
+       */
       function drawBricks() {
         for (let c = 0; c < state.cols; c++) {
           for (let r = 0; r < state.rows; r++) {
@@ -449,10 +1013,16 @@
         }
       }
 
+      /**
+       *  繪製玩家的擋板。
+       */
       function drawPaddle() {
         drawRoundedRect(state.paddle.x, canvas.height - 48, state.paddle.width, state.paddle.height, 10, '#f5f0e8');
       }
 
+      /**
+       *  繪製遊戲中的球體。
+       */
       function drawBall() {
         ctx.beginPath();
         const glow = ctx.createRadialGradient(state.ball.x - 2, state.ball.y - 2, 2, state.ball.x, state.ball.y, state.ball.radius * 1.8);
@@ -463,12 +1033,18 @@
         ctx.fill();
       }
 
+      /**
+       *  繪製遊戲邊框裝飾。
+       */
       function drawFrame() {
         ctx.strokeStyle = 'rgba(255,255,255,.1)';
         ctx.lineWidth = 2;
         ctx.strokeRect(16, 16, canvas.width - 32, canvas.height - 32);
       }
 
+      /**
+       *  偵測球與磚塊碰撞，更新分數、磚塊狀態，並在清空時升級。
+       */
       function collisionDetection() {
         for (let c = 0; c < state.cols; c++) {
           for (let r = 0; r < state.rows; r++) {
@@ -494,6 +1070,9 @@
         }
       }
 
+      /**
+       *  升級後增加關卡數、磚列、加快球速，並重置場地。
+       */
       function levelUp() {
         state.level += 1;
         state.rows = Math.min(7, state.rows + 1);
@@ -508,6 +1087,9 @@
         state.paused = false;
       }
 
+      /**
+       *  處理失去一命的狀態，若還有生命則重置球與板子。
+       */
       function loseLife() {
         state.lives -= 1;
         if (state.lives <= 0) {
@@ -521,6 +1103,9 @@
         showOverlay('失去一命', '先調整板子位置，按空白鍵再次發球。', '繼續');
       }
 
+      /**
+       *  遊戲結束時顯示結算畫面，允許提交分數。
+       */
       function endGame() {
         state.running = false;
         state.gameOver = true;
@@ -528,11 +1113,18 @@
         showOverlay('遊戲結束', `本次得分 ${state.score} 分，輸入名字後可送出排行榜。`, '再玩一次');
       }
 
+      /**
+       *  限制球的速度不超出上限。
+       */
       function clampBallSpeed() {
         state.ball.dx = Math.max(-state.ball.speedCap, Math.min(state.ball.speedCap, state.ball.dx));
         state.ball.dy = Math.max(-state.ball.speedCap, Math.min(state.ball.speedCap, state.ball.dy));
       }
 
+      /** 
+       * 發射球，使球開始移動。
+       * 
+       */
       function launchBall() {
         if (!state.running || state.ballLaunched || state.paused) return;
         const direction = Math.random() > 0.5 ? 1 : -1;
@@ -542,6 +1134,9 @@
         hideOverlay();
       }
 
+      /**
+       *  更新遊戲邏輯，包括板子移動、球的運動、牆壁反彈與失誤判定。
+       */
       function update() {
         if (!state.running || state.paused) return;
 
@@ -587,6 +1182,9 @@
         renderHud();
       }
 
+      /**
+       *  繪製整個場景，包括背景、磚塊、板子與球。
+       */
       function draw() {
         drawBackground();
         drawFrame();
@@ -595,12 +1193,18 @@
         drawBall();
       }
 
+      /**
+       *  遊戲主迴圈，持續更新與重繪內容。
+       */
       function loop() {
         update();
         draw();
         state.animationId = requestAnimationFrame(loop);
       }
 
+      /**
+       *  設定板子左右移動狀態。
+       */
       function setMove(direction, active) {
         if (!active) {
           if ((direction === 'left' && state.paddle.dx < 0) || (direction === 'right' && state.paddle.dx > 0)) state.paddle.dx = 0;
@@ -636,14 +1240,38 @@
         if (['ArrowRight', 'd', 'D'].includes(e.key)) setMove('right', false);
       });
 
-      [['pointerdown','pointerup'], ['touchstart','touchend']].forEach(([start,end]) => {
-        leftBtn.addEventListener(start, (e) => { e.preventDefault(); setMove('left', true); });
-        leftBtn.addEventListener(end, (e) => { e.preventDefault(); setMove('left', false); });
-        rightBtn.addEventListener(start, (e) => { e.preventDefault(); setMove('right', true); });
-        rightBtn.addEventListener(end, (e) => { e.preventDefault(); setMove('right', false); });
+      [
+        ['pointerdown', 'pointerup'],
+        ['touchstart', 'touchend']
+      ].forEach(([start, end]) => {
+        leftBtn.addEventListener(start, (e) => {
+          e.preventDefault();
+          setMove('left', true);
+        });
+        leftBtn.addEventListener(end, (e) => {
+          e.preventDefault();
+          setMove('left', false);
+        });
+        rightBtn.addEventListener(start, (e) => {
+          e.preventDefault();
+          setMove('right', true);
+        });
+        rightBtn.addEventListener(end, (e) => {
+          e.preventDefault();
+          setMove('right', false);
+        });
       });
-
+      /**
+       *  開始遊戲。
+       */
       function startGameplay() {
+        try {
+          ensureAuthenticated();
+        } catch (error) {
+          formMessage.textContent = error.message;
+          showOverlay('需要 Google 登入', error.message, '登入');
+          return;
+        }
         if (state.gameOver) resetGame();
         state.running = true;
         state.paused = false;
@@ -651,7 +1279,9 @@
         pauseButton.textContent = '暫停';
         showOverlay('準備發球', '左右移動板子後，按空白鍵發球。', '知道了');
       }
-
+      /**
+       * 切換遊戲暫停狀態，若遊戲未開始或球未發射則不執行。
+       */
       function togglePause() {
         if (!state.running) return;
         if (!state.ballLaunched && !state.paused) return;
@@ -668,11 +1298,25 @@
       });
 
       restartButton.addEventListener('click', () => {
+        try {
+          ensureAuthenticated();
+        } catch (error) {
+          formMessage.textContent = error.message;
+          showOverlay('需要 Google 登入', error.message, '登入');
+          return;
+        }
         resetGame();
         startGameplay();
       });
 
       pauseButton.addEventListener('click', () => {
+        try {
+          ensureAuthenticated();
+        } catch (error) {
+          formMessage.textContent = error.message;
+          showOverlay('需要 Google 登入', error.message, '登入');
+          return;
+        }
         if (!state.running) {
           startGameplay();
           return;
@@ -712,6 +1356,9 @@
         }
       });
 
+      /**
+       *  從 API 取得排行榜資料，並更新介面顯示。
+       */
       async function loadScores() {
         try {
           const data = await api.getScores();
@@ -728,19 +1375,31 @@
             li.innerHTML = `<span class="rank">${index + 1}</span><span>${escapeHtml(entry.name)}<br><small class="note">${escapeHtml(entry.time)}</small></span><strong>${entry.score}</strong>`;
             leaderboardList.appendChild(li);
           });
-} catch (error) {
+        } catch (error) {
           leaderboardList.innerHTML = `<li><span class="rank">!</span><span>${escapeHtml(error.message || '無法讀取排行榜')}</span><strong>--</strong></li>`;
         }
       }
 
+      /**
+       *  將文字內容轉成 HTML 安全字串，避免 XSS 風險。
+       */
       function escapeHtml(text) {
-        return String(text).replace(/[&<>"']/g, (char) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[char]));
+        return String(text).replace(/[&<>"']/g, (char) => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          '\'': '&#39;'
+        } [char]));
       }
 
+      updateAuthUI();
+      initGoogleAuth();
       resetGame();
       loadScores();
       loop();
     })();
   </script>
 </body>
+
 </html>
