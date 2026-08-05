@@ -810,6 +810,11 @@
           email: payload?.email || '',
         };
         updateAuthUI();
+        const knownName = await prefillPlayerName();
+        if (knownName) {
+          authState.user.name = knownName;
+          updateAuthUI();
+        }
         showOverlay('準備開打', '帳號驗證完成，現在可以開始遊戲與送出分數。', '開始遊戲');
       };
 
@@ -828,6 +833,32 @@
           throw new Error(payload.message || '請求失敗');
         }
         return payload;
+      }
+
+      async function fetchKnownName() {
+        if (!authState.idToken) {
+          return '';
+        }
+
+        try {
+          const response = await requestJson(`score.php?action=user&idToken=${encodeURIComponent(authState.idToken)}`);
+          return response.name || '';
+        } catch {
+          return '';
+        }
+      }
+
+      async function prefillPlayerName() {
+        const knownName = await fetchKnownName();
+        if (knownName) {
+          playerNameInput.value = knownName;
+          // formMessage.textContent = '已自動填入您上次使用的暱稱。';
+          formMessage.hidden = false;
+          return knownName;
+        }
+        playerNameInput.value = '';
+        formMessage.hidden = true;
+        return '';
       }
 
       const api = {

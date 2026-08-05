@@ -1,5 +1,5 @@
 ﻿<?php
-// header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: application/json; charset=utf-8');
 
 class RankService
 {
@@ -37,6 +37,7 @@ class RankService
         $sql = "CREATE TABLE IF NOT EXISTS `{$this->table}` (
             `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
             `name` VARCHAR(100) NOT NULL,
+            `mail` VARCHAR(255) NOT NULL,
             `score` INT NOT NULL DEFAULT 0,
             `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`)
@@ -53,6 +54,13 @@ class RankService
     public function handleRequest(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if (($_GET['action'] ?? '') === 'user') {
+                $tokenInfo = $this->requireGoogleAuth((string)($_GET['idToken'] ?? ''));
+                $name = $this->ensureUserRecord($tokenInfo);
+                echo json_encode(['name' => $name], JSON_UNESCAPED_UNICODE);
+                return;
+            }
+
             $scores = $this->fetchTopScores();
             echo json_encode(['scores' => $scores], JSON_UNESCAPED_UNICODE);
             return;
@@ -76,6 +84,7 @@ class RankService
 
         $name = trim((string)($payload['name'] ?? ''));
         $score = (int)($payload['score'] ?? 0);
+        $idToken = (string)($payload['idToken'] ?? '');
 
         if ($name === '' || mb_strlen($name) > 20) {
             $this->fail(422, '玩家名稱必填且不可超過 20 字');
@@ -85,8 +94,9 @@ class RankService
             $this->fail(422, '分數格式錯誤');
         }
 
-        $this->requireGoogleAuth((string)($payload['idToken'] ?? ''));
-        $this->insertScore($name, $score);
+        $tokenInfo = $this->requireGoogleAuth($idToken);
+        $email = (string)($tokenInfo['email'] ?? '');
+        $this->insertScore($name, $score, $email);
         $scores = $this->fetchTopScores();
 
         echo json_encode(['message' => '分數已儲存', 'scores' => $scores], JSON_UNESCAPED_UNICODE);
@@ -97,45 +107,98 @@ class RankService
     {
         $sql = "SELECT `id`, `name`, `score`, `time`
                 FROM `{$this->table}`
+                WHERE `score` > 0
                 ORDER BY `score` DESC, `time` ASC
                 LIMIT :limit";
 
-        // try {
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-            $stmt->execute();
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
 
-            $scores = [];
-            while ($row = $stmt->fetch()) {
-                $scores[] = [
-                    'id' => (int)$row['id'],
-                    'name' => $row['name'],
-                    'score' => (int)$row['score'],
-                    'time' => $row['time'],
-                ];
-            }
+        $scores = [];
+        while ($row = $stmt->fetch()) {
+            $scores[] = [
+                'id' => (int)$row['id'],
+                'name' => $row['name'],
+                'score' => (int)$row['score'],
+                'time' => $row['time'],
+            ];
+        }
 
-            return $scores;
-        // } catch (PDOException $e) {
-        //     $this->fail(500, '查詢失敗: ' . $e->getMessage());
-        // }
+        return $scores;
     }
 
-    // 驗證 Google idToken 是否存在且有效，無效則回傳 401。
-    private function requireGoogleAuth(string $idToken): void
+    private function fetchNameByEmail(string $email): string
+    {
+        $sql = "SELECT `name`
+                FROM `{$this->table}`
+                WHERE `mail` = :email
+                ORDER BY `time` DESC
+                LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':email' => $email]);
+
+        $row = $stmt->fetch();
+        return $row['name'] ?? '';
+    }
+
+    private function ensureUserRecord(array $tokenInfo): string
+    {
+        $email = (string)($tokenInfo['email'] ?? '');
+        if ($email === '') {
+            return '';
+        }
+
+        $name = $this->fetchNameByEmail($email);
+        if ($name !== '') {
+            return $name;
+        }
+
+        $name = trim((string)($tokenInfo['name'] ?? $tokenInfo['given_name'] ?? $email));
+        if ($name === '') {
+            $name = $email;
+        }
+
+        $this->insertUser($name, $email);
+        return $name;
+    }
+
+    private function insertUser(string $name, string $email): void
+    {
+        $safeName = htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $safeEmail = filter_var($email, FILTER_SANITIZE_EMAIL);
+        $sql = "INSERT INTO `{$this->table}` (`name`, `mail`, `score`) VALUES (:name, :mail, 0)";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':name' => $safeName,
+                ':mail' => $safeEmail,
+            ]);
+        } catch (PDOException $e) {
+            // 若已存在相同 email 則忽略這個錯誤
+            if ($e->getCode() !== '23000') {
+                $this->fail(500, '建立使用者失敗: ' . $e->getMessage());
+            }
+        }
+    }
+
+    // 驗證 Google idToken 是否存在且有效，若驗證成功則回傳 token 內容。
+    private function requireGoogleAuth(string $idToken): array
     {
         if ($idToken === '') {
             $this->fail(401, '請先使用 Google 帳號登入。');
         }
 
-        $verified = $this->verifyGoogleToken($idToken);
-        if (!$verified) {
+        $tokenInfo = $this->getTokenInfo($idToken);
+        if (!is_array($tokenInfo)) {
             $this->fail(401, 'Google 登入驗證失敗，請重新登入。');
         }
+
+        return $tokenInfo;
     }
 
-    // 使用 Google Token Info 服務驗證 idToken 是否屬於指定 client_id。
-    private function verifyGoogleToken(string $idToken): bool
+    private function getTokenInfo(string $idToken): ?array
     {
         $url = 'https://oauth2.googleapis.com/tokeninfo?id_token=' . urlencode($idToken);
         $context = stream_context_create([
@@ -148,27 +211,33 @@ class RankService
 
         $response = @file_get_contents($url, false, $context);
         if ($response === false) {
-            return false;
+            return null;
         }
 
         $data = json_decode($response, true);
         if (!is_array($data)) {
-            return false;
+            return null;
         }
 
-        return (($data['aud'] ?? '') === $this->clientId) && !empty($data['email']);
+        if ((($data['aud'] ?? '') !== $this->clientId) || empty($data['email'])) {
+            return null;
+        }
+
+        return $data;
     }
 
     // 儲存玩家分數到排行榜資料表，並做基本字串過濾。
-    private function insertScore(string $name, int $score): void
+    private function insertScore(string $name, int $score, string $email): void
     {
         $safeName = htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-        $sql = "INSERT INTO `{$this->table}` (`name`, `score`) VALUES (:name, :score)";
+        $safeEmail = filter_var($email, FILTER_SANITIZE_EMAIL);
+        $sql = "INSERT INTO `{$this->table}` (`name`, `mail`, `score`) VALUES (:name, :mail, :score)";
 
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
                 ':name' => $safeName,
+                ':mail' => $safeEmail,
                 ':score' => $score,
             ]);
         } catch (PDOException $e) {
